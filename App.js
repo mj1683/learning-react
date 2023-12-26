@@ -1,47 +1,55 @@
 import React from "react";
-import { ReactDOM } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 
-{/* 
-<div id="parent">
-    <div id="child1">
-        <h1>Hey i am an H1 tag</h1>
-        <h2>Hey i am an H2 tag</h2>
+//  when we render React.createElement onto the DOM then it become the html element
+// initially the react element is an object
+
+const heading = React.createElement(
+  "h1",
+  { id: "heading" },
+  "i am react element"
+);
+
+//JSX - it is not html in JS, it is HTML or XML like syntax.
+//Babel transpiled JSX into react.createElement and then render inside root
+// heading and JSX_heading are same
+const JSX_heading = <h1 id="heading">hey this is JSX</h1>;
+
+// component -> everything inside react is a component
+// there two types of components
+// functional components (new)
+// class based components (old)
+
+// functional component -> returns a reactElement
+// function which returning any JSX then it is functional component
+const HeadingComponent = () => {
+  return <h1> Hey i am a functional component</h1>;
+};
+
+const HeadingComponent2 = () => {
+  // whenever you have to write multiplelines of JSX then use parenthesis like below.
+  return (
+    <div>
+      <h1>Hey i am a functional component named HeadingComponent2</h1>
+      <HeadingComponent />
     </div>
-    <div id="child2">
-        <h1>Hey i am an H1 tag</h1>
-        <h2>Hey i am an H2 tag</h2>
+  );
+};
+const number = 1000;
+const NormalFunction = function () {
+  return (
+    <div id="heading">
+      {
+        HeadingComponent2() /* Inside these curly braces we can write any piece of javascript code within JSX. This is the power of JSX*/
+      }
+      <HeadingComponent2 />
+      <HeadingComponent></HeadingComponent>
+      <h1> I am inside normal function component</h1>
     </div>
-</div> 
-If we want to create this html document then how can we create it through React.createElement
-*/}
+  );
+};
 
+const root = createRoot(document.getElementById("root"));
 
-/// React.createElement returns me the javascript object 
-const heading = React.createElement("h1", {id: "heading", xyz: "abc"}, "hello world from react");
-
-
-// this how you can create the object using React.createElement(), which will render to above html
-const parent = React.createElement("div", {id: "parent"}, 
-                [React.createElement("div", {id: "child1"}, 
-                    [React.createElement("h1", {}, "Hey i am an H1 tag"), 
-                     React.createElement("h2", {}, "Hey i am an H2 tag")]), 
-
-                React.createElement("div", {id: "child2"}, 
-                    [React.createElement("h1", {}, "Hey i am an H1 tag"), 
-                     React.createElement("h2", {}, "Hey i am an H2 tag")])
-                ])
-
-console.log(parent); // object 
-
-// react needs a root where it renders all stuff
-// root is just a html element
-/// everything will render inside in this root in react
-/// react is only getting applied to this root element 
-/// apart from this root element in your body everything working without react. 
-const root = ReactDOM.createRoot(document.getElementById("root")); 
-
-/// this render method is taking heading object and convert this object into html
-/// and put everything onto the DOM.
-// anything already present inside root element will be replaced 
-//              by the object passed inside root.render()
-root.render(parent); 
+// whenever we need to render any component then we use this syntax <component />
+root.render(<NormalFunction />);

@@ -11,4 +11,8 @@
 - compressing 
 - consistent hashing 
 - code splitting 
-- differential bundling 
+- differential bundling (support older browsers)
+- diagnostic
+- error handling 
+- tree shaking (remove unused code)
+- different dev and production bundles
