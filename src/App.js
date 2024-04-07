@@ -2,20 +2,45 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
-
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import RestaurantMenu from "./components/RestaurantMenu";
 
 const Applayout = () => {
   return (
     <div className="app">
       <Header />
-      <Body />
+      <Outlet />{" "}
+      {/* This Outlet will get replaced by Element according to the route */}
     </div>
   );
 };
 
+// this configuration telling what will get load on which path
+// -> we will have to provide this configuration to render, RouterProvider is use for it.
+const myRouts = createBrowserRouter([
+  {
+    path: "/",
+    element: <Applayout />,
+    children: [
+      { path: "/", element: <Body /> },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      { path: "/contact", element: <Contact /> },
+      {path: "/restaurants/:resId", element: <RestaurantMenu />}
+    ],
+    errorElement: <Error />,
+  },
+]);
+
 const root = createRoot(document.getElementById("root"));
 
-root.render(<Applayout />);
+// RouterProvider is use to provide configuration to my render method
+root.render(<RouterProvider router={myRouts} />);
 
 // const reactElement = (
 //   <h1> hey i am a react element</h1>

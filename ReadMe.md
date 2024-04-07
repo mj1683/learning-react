@@ -40,3 +40,8 @@ two most important hooks
 
 - useState() // superpowerful state variables in react;
 - useEffect() //
+
+# types of routing 
+- client side routing
+
+- server side routing 
